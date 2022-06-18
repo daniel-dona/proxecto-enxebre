@@ -20,10 +20,11 @@ def preprocess_function(examples):
 	inputs = [prefix + example for example in examples["es"]]
 	targets = [example for example in examples["gl"]]
 
-	model_inputs = tokenizer(inputs)
+	model_inputs = tokenizer(inputs, max_length=256, truncation=True)
 
 	with tokenizer.as_target_tokenizer():
-		labels = tokenizer(targets)
+		labels = tokenizer(targets, max_length=256, truncation=True)
+
 
 	model_inputs["labels"] = labels["input_ids"]
 	
